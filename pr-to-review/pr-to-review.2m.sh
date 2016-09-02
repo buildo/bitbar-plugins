@@ -34,7 +34,7 @@ case $BitBarDarkMode in
   *) ICON_URL=http://s15.postimg.org/3ya1oitmf/pr_icon_black.png ;;
 esac
 
-MERGE_ICON=`curl -s $ICON_URL | base64`
+MERGE_ICON=`curl -sL $ICON_URL | base64`
 
 echo " $PR_COUNT | color=$COLOR image=$MERGE_ICON"
 echo "---"
