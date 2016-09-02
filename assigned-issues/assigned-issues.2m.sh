@@ -26,7 +26,7 @@ case $BitBarDarkMode in
   *) ICON_URL=http://s16.postimg.org/3kumk95xt/issue_icon_black.png ;;
 esac
 
-ISSUE_ICON=`curl -s $ICON_URL | base64`
+ISSUE_ICON=`curl -sL $ICON_URL | base64`
 
 echo " $COUNT | image=$ISSUE_ICON"
 echo "---"
