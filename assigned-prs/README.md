@@ -1,11 +1,11 @@
-# PRs to review
+# Assigned PRs
 
-[BitBar](https://github.com/matryer/bitbar) plugin to display the total number of PRs to review.
+[BitBar](https://github.com/matryer/bitbar) plugin to display the total number of assigned PRs.
 
 ![image](https://cloud.githubusercontent.com/assets/691940/15679512/74f2e48e-2752-11e6-97bb-e4ece9dd7d76.png)
 
 ## What does it do?
-Periodically checks the review requested to a GitHub user and displays the total count on the OSX top bar.
+Periodically checks the PRs assigned to a GitHub user and displays the total count on the OSX top bar.
 You can click on the single count lines to jump to the relative GitHub page.
 
 ## Prerequisites
