@@ -5,6 +5,8 @@
 ## What does it do?
 Display the next meeting, including the current one if started.
 
+Clicking on the bar, displays the full agenda for today.
+
 ## Prerequisites
 - [BitBar](https://github.com/matryer/bitbar) (if you use brew cask: `brew cask install bitbar`)
 - [gcalcli](https://github.com/insanum/gcalcli) (`pip install gcalcli`)
