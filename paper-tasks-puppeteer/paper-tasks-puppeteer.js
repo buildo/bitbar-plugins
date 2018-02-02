@@ -7,37 +7,37 @@ const password = '...' // your dropbox password
 /*************** ***************/
 
 
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer')
 
 // global variable is needed to call "browser.close()" when script is over
-let browser;
+let browser
 
 async function getPaperTasksCount() {
   // setup
-  browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  browser = await puppeteer.launch()
+  const page = await browser.newPage()
   await page.setViewport({
     width: 1280,
     height: 800
-  });
+  })
 
   // navigate to dropbox login page
-  await page.goto('https://www.dropbox.com/login');
-  await page.waitForSelector('input[type="email"]');
+  await page.goto('https://www.dropbox.com/login')
+  await page.waitForSelector('input[type="email"]')
 
   // fill login form and login
-  await page.type('input[type="email"]', email);
-  await page.type('input[type="password"]', password);
-  await page.click('.login-button');
-  await page.waitForFunction(() => !window.location.href.includes('login'));
+  await page.type('input[type="email"]', email)
+  await page.type('input[type="password"]', password)
+  await page.click('.login-button')
+  await page.waitForFunction(() => !window.location.href.includes('login'))
 
   // navigate to tasks page
-  await page.goto('https://paper.dropbox.com/tasks', {waitUntil: 'networkidle2'});
+  await page.goto('https://paper.dropbox.com/tasks', {waitUntil: 'networkidle2'})
 
   // count tasks
-  const tasks = await page.$$('.hp-task');
-  return tasks.length;
-};
+  const tasks = await page.$$('.hp-task')
+  return tasks.length
+}
 
 function onSuccess(tasksCount) {
   console.log(tasksCount)
@@ -47,14 +47,14 @@ function onSuccess(tasksCount) {
 }
 
 function onError(e) {
-  console.error(e);
-  browser.close();
+  console.error(e)
+  browser.close()
 }
 
 // close browser on CTRL+C
 process.on('SIGINT', () => {
-  browser.close();
-});
+  browser.close()
+})
 
 // run script
 getPaperTasksCount()
