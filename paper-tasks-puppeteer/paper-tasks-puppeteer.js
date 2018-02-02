@@ -42,7 +42,7 @@ async function getPaperTasksCount() {
 function onSuccess(tasksCount) {
   console.log(tasksCount)
   console.log('---')
-  console.log('Open in Chrome | href=https://paper.dropbox.com/tasks')
+  console.log('Open in browser | href=https://paper.dropbox.com/tasks')
   browser.close()
 }
 
