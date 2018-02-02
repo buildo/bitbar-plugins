@@ -40,8 +40,10 @@ async function getPaperTasksCount() {
 };
 
 function onSuccess(tasksCount) {
-  console.log(tasksCount);
-  browser.close();
+  console.log(tasksCount)
+  console.log('---')
+  console.log('Open in Chrome | href=https://paper.dropbox.com/tasks')
+  browser.close()
 }
 
 function onError(e) {
