@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
+
+/******** CONFIGURATION ********/
+const email = '...' // e.g. francesco@buildo.io
+const password = '...' // your dropbox password
+/*************** ***************/
+
+
 const puppeteer = require('puppeteer');
-const credentials = require('./credentials')
 
 // global variable is needed to call "browser.close()" when script is over
 let browser;
@@ -20,8 +26,8 @@ async function getPaperTasksCount() {
   await page.waitForSelector('input[type="email"]');
 
   // fill login form and login
-  await page.type('input[type="email"]', credentials.email);
-  await page.type('input[type="password"]', credentials.password);
+  await page.type('input[type="email"]', email);
+  await page.type('input[type="password"]', password);
   await page.click('.login-button');
   await page.waitForFunction(() => !window.location.href.includes('login'));
 
