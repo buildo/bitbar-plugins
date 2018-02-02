@@ -14,7 +14,7 @@ let browser;
 
 async function getPaperTasksCount() {
   // setup
-  browser = await puppeteer.launch({ headless: false });
+  browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({
     width: 1280,
