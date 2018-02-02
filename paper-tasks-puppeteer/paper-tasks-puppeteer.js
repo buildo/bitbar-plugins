@@ -43,6 +43,11 @@ function onError(e) {
   browser.close();
 }
 
+// close browser on CTRL+C
+process.on('SIGINT', () => {
+  browser.close();
+});
+
 // run script
 getPaperTasksCount()
   .then(onSuccess)
