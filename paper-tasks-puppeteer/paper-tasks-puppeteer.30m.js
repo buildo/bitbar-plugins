@@ -13,7 +13,7 @@ const puppeteer = require(puppeteerPath)
 // global variable is needed to call "browser.close()" when script is over
 let browser
 
-async function getPaperTasksCount() {
+async function getPaperTasks() {
   // setup
   browser = await puppeteer.launch()
   const page = await browser.newPage()
@@ -68,6 +68,6 @@ process.on('SIGINT', () => {
 })
 
 // run script
-getPaperTasksCount()
+getPaperTasks()
   .then(onSuccess)
   .catch(onError)
