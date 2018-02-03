@@ -1,13 +1,14 @@
-#!/usr/bin/env node
+#!/usr/bin/env /usr/local/bin/node
 
 
 /******** CONFIGURATION ********/
-const email = '...' // e.g. francesco@buildo.io
+const email = '...' // e.g., francesco@buildo.io
 const password = '...' // your dropbox password
+const puppeteerPath = '...' // e.g., /usr/local/lib/node_modules/puppeteer
 /*************** ***************/
 
 
-const puppeteer = require('puppeteer')
+const puppeteer = require(puppeteerPath)
 
 // global variable is needed to call "browser.close()" when script is over
 let browser
@@ -40,7 +41,7 @@ async function getPaperTasksCount() {
 }
 
 function onSuccess(tasksCount) {
-  const colorForCount = tasksCount > 0 ? 'green' : 'red'
+  const colorForCount = tasksCount > 0 ? 'red' : 'green'
   console.log(`✓ ${tasksCount} | color=${colorForCount}`)
   console.log('---')
   console.log('Open in browser | href=https://paper.dropbox.com/tasks')
