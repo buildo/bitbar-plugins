@@ -40,7 +40,8 @@ async function getPaperTasksCount() {
 }
 
 function onSuccess(tasksCount) {
-  console.log(`✓ ${tasksCount}`)
+  const colorForCount = tasksCount > 0 ? 'green' : 'red'
+  console.log(`✓ ${tasksCount} | color=${colorForCount}`)
   console.log('---')
   console.log('Open in browser | href=https://paper.dropbox.com/tasks')
   browser.close()
