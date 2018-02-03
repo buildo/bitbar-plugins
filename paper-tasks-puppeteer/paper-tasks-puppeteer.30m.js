@@ -53,6 +53,7 @@ function onSuccess(tasks) {
   console.log(`✓ ${tasksCount} | color=${colorForCount}`)
   console.log('---')
   tasks.forEach(task => console.log(`${task} | href=https://paper.dropbox.com/tasks`))
+  tasksCount > 0 && console.log('---')
   console.log('Open in browser | href=https://paper.dropbox.com/tasks')
   browser.close()
 }
