@@ -35,15 +35,24 @@ async function getPaperTasksCount() {
   // navigate to tasks page
   await page.goto('https://paper.dropbox.com/tasks', {waitUntil: 'networkidle2'})
 
-  // count tasks
-  const tasks = await page.$$('.hp-task')
-  return tasks.length
+  // collect tasks
+  // collect tasks
+  const taskElements = await page.$$('.hp-task-text')
+  const tasks = await Promise.all(taskElements.map(async t => {
+    const innerTextHandle = await t.getProperty('innerText')
+    const innerText = await innerTextHandle.jsonValue()
+    return innerText.trim()
+  }))
+
+  return tasks
 }
 
-function onSuccess(tasksCount) {
+function onSuccess(tasks) {
+  const tasksCount = tasks.length
   const colorForCount = tasksCount > 0 ? 'red' : 'green'
   console.log(`✓ ${tasksCount} | color=${colorForCount}`)
   console.log('---')
+  tasks.forEach(task => console.log(`${task} | href=https://paper.dropbox.com/tasks`))
   console.log('Open in browser | href=https://paper.dropbox.com/tasks')
   browser.close()
 }
