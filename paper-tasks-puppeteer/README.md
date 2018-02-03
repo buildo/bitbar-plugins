@@ -1,8 +1,8 @@
-# Assigned PRs
+# Dropbox Paper tasks
 
-[BitBar](https://github.com/matryer/bitbar) plugin to display the total number of assigned PRs.
+[BitBar](https://github.com/matryer/bitbar) plugin to display the total number of assigned Dropbox paper tasks.
 
-![image](https://cloud.githubusercontent.com/assets/691940/15679512/74f2e48e-2752-11e6-97bb-e4ece9dd7d76.png)
+![image](https://user-images.githubusercontent.com/6418684/35766200-8b3bcf94-08d3-11e8-9a5c-0dc9be4c5c33.png)
 
 ## What does it do?
 Periodically checks the tasks assigned to a Dropbox Paper user and displays the total count on the OSX top bar.
