@@ -1,9 +1,11 @@
 #!/usr/bin/env /usr/local/bin/node
 
 /******** CONFIGURATION ********/
-const email = '...' // e.g., francesco@buildo.io
-const password = '...' // your dropbox password
-const puppeteerPath = '...' // e.g., /usr/local/lib/node_modules/puppeteer
+const email = '<NAME.LASTNAME>@buildo.io' // Your dropbox email, e.g. francesco@buildo.io
+const password = '<PASSWORD>' // your dropbox password
+const puppeteerPath = '/path/to/puppeteer' // e.g. /usr/local/lib/node_modules/puppeteer
+const puppeteerDataDir = '/path/to/bitbar/plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
+const headless = true // should always be 'true'. Set to false for debugging and first-time 2FA login
 /*************** ***************/
 
 const puppeteer = require(puppeteerPath)
@@ -13,7 +15,7 @@ let browser
 
 async function getPaperTasks() {
   // setup
-  browser = await puppeteer.launch()
+  browser = await puppeteer.launch({ headless, userDataDir: puppeteerDataDir })
   const page = await browser.newPage()
   await page.setViewport({
     width: 1280,
@@ -21,14 +23,17 @@ async function getPaperTasks() {
   })
 
   // navigate to dropbox login page
-  await page.goto('https://www.dropbox.com/login')
-  await page.waitForSelector('input[type="email"]')
+  const loginPage = await page.goto('https://www.dropbox.com/login')
+  // skip the login if we've been redirected to the home page (i.e. we're already logged in)
+  if (!page.url().endsWith('/h')) {
+    await page.waitForSelector('input[type="email"]')
 
-  // fill login form and login
-  await page.type('input[type="email"]', email)
-  await page.type('input[type="password"]', password)
-  await page.click('.login-button')
-  await page.waitForFunction(() => !window.location.href.includes('login'))
+    // fill login form and login
+    await page.type('input[type="email"]', email)
+    await page.type('input[type="password"]', password)
+    await page.click('.login-button')
+    await page.waitForFunction(() => !window.location.href.includes('login'))
+  }
 
   // navigate to tasks page
   await page.goto('https://paper.dropbox.com/tasks', { waitUntil: 'networkidle2' })
