@@ -9,7 +9,7 @@ const headless = true // should always be 'true'. Set to false for debugging and
 /*************** ***************/
 
 const puppeteer = require(puppeteerPath)
-const version = require(`${puppeteerPath}/package.json`).version
+const version = require(`${puppeteerPath.replace(/\/$/, "")}/package.json`).version
 if (version !== "0.13.0") {
   console.error("Wrong puppeteer version: use puppeteer@0.13.0")
   process.exit(1);
