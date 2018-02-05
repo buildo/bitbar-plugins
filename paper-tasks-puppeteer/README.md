@@ -2,8 +2,6 @@
 
 [BitBar](https://github.com/matryer/bitbar) plugin to display the total number of assigned Dropbox paper tasks.
 
-![image](https://user-images.githubusercontent.com/691940/35770241-f07efa68-0917-11e8-94f7-a5347a0a44da.png)
-
 ![](http://g.recordit.co/EBa1hZXnOv.gif)
 
 ## What does it do?
