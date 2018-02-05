@@ -36,7 +36,8 @@ async function getPaperTasks() {
   }
 
   // navigate to tasks page
-  await page.goto('https://paper.dropbox.com/tasks', { waitUntil: 'networkidle2' })
+  await page.goto('https://paper.dropbox.com/tasks')
+  await page.waitForSelector('.hp-tasks-list')
 
   // collect tasks
   const taskElements = await page.$$('.hp-task')
