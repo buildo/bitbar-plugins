@@ -73,7 +73,8 @@ const ansiCyan = '\u001b[4m'
 
 function onSuccess(tasks) {
   const tasksCount = tasks.length
-  const colorForCount = tasksCount > 0 ? 'red' : 'green'
+  const overdueCount = tasks.filter(t => t.isOverdue).length
+  const colorForCount = overdueCount > 0 ? 'red' : 'black'
   console.log(`✓ ${tasksCount} | color=${colorForCount}`)
   console.log('---')
   const tasksByPaper = groupBy(tasks, 'paper')
