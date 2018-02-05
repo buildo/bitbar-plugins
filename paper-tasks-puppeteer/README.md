@@ -2,7 +2,7 @@
 
 [BitBar](https://github.com/matryer/bitbar) plugin to display the total number of assigned Dropbox paper tasks.
 
-![image](https://user-images.githubusercontent.com/6418684/35766200-8b3bcf94-08d3-11e8-9a5c-0dc9be4c5c33.png)
+![](http://g.recordit.co/EBa1hZXnOv.gif)
 
 ## What does it do?
 Periodically checks the tasks assigned to a Dropbox Paper user and displays the total count on the OSX top bar.
