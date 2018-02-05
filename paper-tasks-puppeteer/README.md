@@ -11,7 +11,7 @@ You can click on the count to show the link to open the Dropbox Paper tasks page
 ## Prerequisites
 - [BitBar](https://github.com/matryer/bitbar) (if you use brew cask: `brew cask install bitbar`)
 - [node](https://nodejs.org/) (`brew install node`)
-- [puppeteer](https://github.com/GoogleChrome/puppeteer) (`npm install -g puppeteer`)
+- [puppeteer@0.13](https://github.com/GoogleChrome/puppeteer) (`npm install -g puppeteer@0.13`)
 
 ## Installation
 - copy the script in the BitBar plugin directory

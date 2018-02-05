@@ -3,12 +3,17 @@
 /******** CONFIGURATION ********/
 const email = '<NAME.LASTNAME>@buildo.io' // Your dropbox email, e.g. francesco@buildo.io
 const password = '<PASSWORD>' // your dropbox password
-const puppeteerPath = '/path/to/puppeteer' // e.g. /usr/local/lib/node_modules/puppeteer
+const puppeteerPath = '/path/to/puppeteer' // path to the puppeteer@0.13 node module folder e.g. /usr/local/lib/node_modules/puppeteer
 const puppeteerDataDir = '/path/to/bitbar/plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
 const headless = true // should always be 'true'. Set to false for debugging and first-time 2FA login
 /*************** ***************/
 
 const puppeteer = require(puppeteerPath)
+const version = require(`${puppeteerPath}/package.json`).version
+if (version !== "0.13.0") {
+  console.error("Wrong puppeteer version: use puppeteer@0.13.0")
+  process.exit(1);
+}
 
 // global variable is needed to call "browser.close()" when script is over
 let browser
