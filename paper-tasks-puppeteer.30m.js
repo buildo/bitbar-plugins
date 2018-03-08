@@ -1,19 +1,15 @@
-#!/usr/bin/env /usr/local/bin/node
+#!/usr/bin/env /Users/francesco/.nvm/versions/v8.9.4/bin/node
 
+const config = require('./configs/config.json')
 /******** CONFIGURATION ********/
-const email = '<NAME.LASTNAME>@buildo.io' // Your dropbox email, e.g. francesco@buildo.io
-const password = '<PASSWORD>' // your dropbox password
-const puppeteerPath = '/path/to/puppeteer' // path to the puppeteer@0.13 node module folder e.g. /usr/local/lib/node_modules/puppeteer
-const puppeteerDataDir = '/path/to/bitbar/plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
+const email = config.paper.email // e.g., francesco@buildo.io
+const password = config.paper.password // your dropbox password
+const puppeteerPath = '/Users/francesco/.nvm/versions/v8.9.4/lib/node_modules/puppeteer' // e.g., /usr/local/lib/node_modules/puppeteer
+const puppeteerDataDir = 'Users/francesco/BitBar/Plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
 const headless = true // should always be 'true'. Set to false for debugging and first-time 2FA login
 /*************** ***************/
 
 const puppeteer = require(puppeteerPath)
-const version = require(`${puppeteerPath.replace(/\/$/, "")}/package.json`).version
-if (version !== "0.13.0") {
-  console.error("Wrong puppeteer version: use puppeteer@0.13.0")
-  process.exit(1);
-}
 
 // global variable is needed to call "browser.close()" when script is over
 let browser
@@ -41,8 +37,7 @@ async function getPaperTasks() {
   }
 
   // navigate to tasks page
-  await page.goto('https://paper.dropbox.com/tasks')
-  await page.waitForSelector('.hp-tasks-list')
+  await page.goto('https://paper.dropbox.com/tasks', { waitUntil: 'networkidle2' })
 
   // collect tasks
   const taskElements = await page.$$('.hp-task')
