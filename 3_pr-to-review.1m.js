@@ -1,6 +1,6 @@
 #! /bin/bash
 
-source /Users/francesco/configs/config.cfg
+source /Users/francesco/bitbar-plugins/configs/config.cfg
 
 ######### CONFIGURATION #########
 GITHUB_USER=$github_username # e.g. "gabro"
