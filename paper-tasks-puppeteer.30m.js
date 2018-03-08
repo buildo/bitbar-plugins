@@ -5,7 +5,7 @@ const config = require('./configs/config.json')
 const email = config.paper.email // e.g., francesco@buildo.io
 const password = config.paper.password // your dropbox password
 const puppeteerPath = '/Users/francesco/.nvm/versions/v8.9.4/lib/node_modules/puppeteer' // e.g., /usr/local/lib/node_modules/puppeteer
-const puppeteerDataDir = 'Users/francesco/BitBar/Plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
+const puppeteerDataDir = 'Users/francesco/bitbar-plugins/.puppeteer' // path to the puppeteer's userDataDir, used to persist login sessions
 const headless = true // should always be 'true'. Set to false for debugging and first-time 2FA login
 /*************** ***************/
 
