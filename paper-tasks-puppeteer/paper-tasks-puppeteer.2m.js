@@ -17,6 +17,7 @@ if (version !== "0.13.0") {
 
 // global variable is needed to call "browser.close()" when script is over
 let browser
+const chrono = require('chrono-node')
 
 async function getPaperTasks() {
   // setup
@@ -57,8 +58,11 @@ async function getPaperTasks() {
     const dueDate = await t.$('.ace-line-task-controls-duedate .i18n-msg')
       .then(t => t && t.getProperty('innerText') || undefined)
       .then(t => t && t.jsonValue() || undefined)
+    const dueDateParsed = dueDate === undefined ? 0 : chrono.parseDate(dueDate) 
+    const categoryMatch = text.match(/\[(\w+)\]/)
+    const category = (categoryMatch ? categoryMatch[1] : 'none')
     const isOverdue = await t.$('.ace-line-task-controls-overdue')
-    return { text, paper, paperHref, dueDate, isOverdue }
+    return { text, paper, paperHref, dueDate, dueDateParsed, isOverdue, category }
   }))
 
   return tasks
@@ -75,22 +79,26 @@ const ansiReset = '\u001b[0m'
 const ansiBlack = '\u001b[30m'
 const ansiRed = '\u001b[31m'
 const ansiBlue = '\u001b[34m'
+const ansiYellow = '\u001b[33m'
 const ansiCyan = '\u001b[4m'
 
 function onSuccess(tasks) {
   const tasksCount = tasks.length
   const overdueCount = tasks.filter(t => t.isOverdue).length
+  const dueWithin7Days = tasks.filter(t => (chrono.parseDate('in 7 days') - t.dueDateParsed) < 7 * 24 * 60 * 60 * 1000).length
+  const notOverdueCount = tasks.filter(t => !t.isOverdue).length
   const colorForCount = overdueCount > 0 ? 'red' : 'black'
-  console.log(`✓ ${tasksCount} | color=${colorForCount}`)
+  const overdueCountFormatted = overdueCount > 0 ? ` ${ansiRed}/${overdueCount}` : ''
+  console.log(`✓ ${dueWithin7Days}${overdueCountFormatted}`)
   console.log('---')
-  const tasksByPaper = groupBy(tasks, 'paper')
-  Object.keys(tasksByPaper).forEach(paper => {
-    const tasks = tasksByPaper[paper]
-    console.log(`${paper} | color=#848484`)
-    tasks.forEach(({ text, paperHref, dueDate = '', isOverdue }) => {
-      const color = isOverdue ? ansiRed : ansiBlue
+  const tasksByCategory = groupBy(tasks.sort((a,b) => (a.dueDateParsed > 0 ? a.dueDateParsed : 9999999999)  - (b.dueDateParsed > 0 ? b.dueDateParsed : 9999999999)), 'category')
+  Object.keys(tasksByCategory).forEach(category => {
+    const tasks = tasksByCategory[category]
+    console.log(`${category} | color=#848484`)
+    tasks.forEach(({ text, paper, paperHref, dueDate = '', dueDateParsed, isOverdue }) => {
+      const color = (isOverdue ? ansiRed : ansiBlue)
       const processedText = text.replace(/@\s*\w+ \w\s*/g, '')
-      console.log(`    ${processedText} ${color}${dueDate}${ansiReset}| href=${paperHref} trim=false`)
+      console.log(`   ${processedText} ${color}${dueDate}${ansiReset}| href=${paperHref} trim=false`)
     })
   })
   tasksCount > 0 && console.log('---')
