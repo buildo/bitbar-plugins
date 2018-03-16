@@ -29,8 +29,8 @@ async function getPaperTasks() {
 
   // navigate to dropbox login page
   const loginPage = await page.goto('https://www.dropbox.com/login')
-  // skip the login if we've been redirected to the home page (i.e. we're already logged in)
-  if (!page.url().endsWith('/h')) {
+  // skip the login if we've been redirected (i.e. we're already logged in)
+  if (page.url().endsWith('/login')) {
     await page.waitForSelector('input[type="email"]')
 
     // fill login form and login
