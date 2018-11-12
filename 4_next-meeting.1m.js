@@ -10,17 +10,19 @@ const nowDate = new Date();
 const now = nowDate.toISOString();
 
 const agenda = execSync(
-  `/usr/local/bin/gcalcli --calendar ${calendar} agenda ${now} --tsv --nocolor`,
+  `/usr/local/bin/gcalcli --calendar ${calendar} agenda ${now} --tsv --nocolor --detail_url long`,
   { encoding: "utf8" }
 ).trim();
 
 const parseLine = line => {
-  const [startDate, startTime, endDate, endTime, event] = line.split("\t");
+  const [startDate, startTime, endDate, endTime, url, _videoCallUrl, event] = line.split("\t");
+
   return {
     startDate,
     startTime,
     endDate,
     endTime,
+    url,
     event
   };
 };
@@ -47,7 +49,7 @@ const numberOfEventsToday = lines.filter(line => line.startDate === today)
 console.log(`📅 ${numberOfEventsToday}\n---`);
 
 const agendaParsed = lines.forEach(
-  ({ startDate, startTime, endTime, event }, index) => {
+  ({ startDate, startTime, endTime, url, event }, index) => {
     // if (index === 0) {
     // console.log(`${time} ${event.length > 15 ? event.slice(0, 12).trim() + '...' : event} | image=${icon}`)
     // console.log('---')
@@ -65,7 +67,7 @@ const agendaParsed = lines.forEach(
       );
     }
     console.log(
-      `    ${startTime}-${endTime} ${event} | href=https://calendar.google.com trim=false`
+      `    ${startTime}-${endTime} ${event} | href=${url} trim=false`
     );
   }
 );
