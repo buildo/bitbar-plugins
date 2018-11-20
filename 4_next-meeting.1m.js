@@ -10,12 +10,29 @@ const nowDate = new Date();
 const now = nowDate.toISOString();
 
 const agenda = execSync(
-  `/usr/local/bin/gcalcli --calendar ${calendar} agenda ${now} --tsv --nocolor --detail_url long`,
+  `/usr/local/bin/gcalcli --calendar ${calendar} agenda ${now} --tsv --nocolor --detail_url long --detail_location`,
   { encoding: "utf8" }
 ).trim();
 
+const locations = {
+  "Loft 2-Open Space-Salottino (18)": "Divano 2",
+  "Loft 1-Upstairs-Sala Riunioni (12)": "Sala riunioni",
+  "Campo da basket Loft 1": "Kanban",
+  "loft 1 campo da basket": "Kanban",
+  "Loft 1-Open Space-divano loft 1 (20)": "Divano 1"
+};
+
 const parseLine = line => {
-  const [startDate, startTime, endDate, endTime, url, _videoCallUrl, event] = line.split("\t");
+  const [
+    startDate,
+    startTime,
+    endDate,
+    endTime,
+    url,
+    _videoCallUrl,
+    event,
+    location
+  ] = line.split("\t");
 
   return {
     startDate,
@@ -23,7 +40,8 @@ const parseLine = line => {
     endDate,
     endTime,
     url,
-    event
+    event,
+    location: locations[location] || (location ? "Out" : "")
   };
 };
 
@@ -49,7 +67,7 @@ const numberOfEventsToday = lines.filter(line => line.startDate === today)
 console.log(`📅 ${numberOfEventsToday}\n---`);
 
 const agendaParsed = lines.forEach(
-  ({ startDate, startTime, endTime, url, event }, index) => {
+  ({ startDate, startTime, endTime, url, event, location }, index) => {
     // if (index === 0) {
     // console.log(`${time} ${event.length > 15 ? event.slice(0, 12).trim() + '...' : event} | image=${icon}`)
     // console.log('---')
@@ -61,13 +79,14 @@ const agendaParsed = lines.forEach(
           startDate === today
             ? "Oggi"
             : startDate === tomorrow
-              ? "Domani"
-              : formatDate(startDate)
+            ? "Domani"
+            : formatDate(startDate)
         } | color=#848484`
       );
     }
     console.log(
-      `    ${startTime}-${endTime} ${event} | href=${url} trim=false`
+      `    ${startTime}-${endTime}    ${event}    ${location &&
+        "@" + location} | font=UbuntuMono href=${url} trim=false`
     );
   }
 );
