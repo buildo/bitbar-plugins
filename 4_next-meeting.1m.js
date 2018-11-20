@@ -29,7 +29,7 @@ const parseLine = line => {
     endDate,
     endTime,
     url,
-    _videoCallUrl,
+    _videoCallUrl, // not used
     event,
     location
   ] = line.split("\t");
@@ -46,7 +46,6 @@ const parseLine = line => {
 };
 
 const days = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
-// const months = ['Gen', 'Feb', 'Mar', 'Apr', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const pad = n => (n < 10 ? `0${n}` : String(n));
 const formatDate = isoDate =>
   `${days[new Date(isoDate).getDay()]} ${pad(new Date(isoDate).getDate())}`; // ${months[new Date(isoDate).getMonth()]}`
@@ -64,15 +63,12 @@ const lines = agenda.split("\n").map(line => parseLine(line.trim()));
 const numberOfEventsToday = lines.filter(line => line.startDate === today)
   .length;
 
+// TOP BAR ICON
 console.log(`📅 ${numberOfEventsToday}\n---`);
 
-const agendaParsed = lines.forEach(
+// DROPDOWN CONTENT
+lines.forEach(
   ({ startDate, startTime, endTime, url, event, location }, index) => {
-    // if (index === 0) {
-    // console.log(`${time} ${event.length > 15 ? event.slice(0, 12).trim() + '...' : event} | image=${icon}`)
-    // console.log('---')
-    // }
-
     if (startDate !== (lines[index - 1] || {}).startDate) {
       console.log(
         `${
