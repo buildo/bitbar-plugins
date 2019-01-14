@@ -16,10 +16,13 @@ const agenda = execSync(
 
 const locations = {
   "Loft 2-Open Space-Salottino (18)": "Divano 2",
+  "loft 2, Loft 2-Open Space-Salottino (18)": "Divano 2",
   "Loft 1-Upstairs-Sala Riunioni (12)": "Sala riunioni",
   "Campo da basket Loft 1": "Kanban",
   "loft 1 campo da basket": "Kanban",
-  "Loft 1-Open Space-divano loft 1 (20)": "Divano 1"
+  "Loft 1-Open Space-divano loft 1 (20)": "Divano 1",
+  "Divano Loft 1": "Divano 1",
+  "buildo, Via Malaga, 4, 20143 Milano MI, Italy": "Buildo generico"
 };
 
 const parseLine = line => {
