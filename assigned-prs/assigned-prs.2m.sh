@@ -1,8 +1,8 @@
 #! /bin/bash
 
 ######### CONFIGURATION #########
-GITHUB_USER="raasoft" # e.g. "gabro"
-GITHUB_COM_TOKEN="258fbe2a1dd80ffc10a7d7c68c36361e08568e80" # get one at https://github.com/settings/tokens
+GITHUB_USER="" # e.g. "gabro"
+GITHUB_COM_TOKEN="" # get one at https://github.com/settings/tokens
 #################################
 
 PATH=$PATH:/usr/local/bin
@@ -15,7 +15,7 @@ GITHUB_COM_RESULT=`curl -ks $GITHUB_COM_API/search/issues\?q\=$QUERY\&access_tok
 
 GITHUB_COM_COUNT=`echo $GITHUB_COM_RESULT | jq '.total_count'`
 
-PR_COUNT=$(($GITHUB_COM_COUNT))
+PR_COUNT=$GITHUB_COM_COUNT
 
 function colorForCount {
   if [ $1 = 0 ]; then echo 'green'; else echo 'red'; fi
