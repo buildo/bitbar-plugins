@@ -1,8 +1,8 @@
 #! /bin/bash
 
 ######### CONFIGURATION #########
-GITHUB_USER="" # e.g. "gabro"
-GITHUB_COM_TOKEN="" # get one at https://github.com/settings/tokens
+GITHUB_USER="raasoft" # e.g. "gabro"
+GITHUB_COM_TOKEN="258fbe2a1dd80ffc10a7d7c68c36361e08568e80" # get one at https://github.com/settings/tokens
 #################################
 
 PATH=$PATH:/usr/local/bin
