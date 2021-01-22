@@ -15,7 +15,7 @@ GITHUB_COM_RESULT=`curl -ks $GITHUB_COM_API/search/issues\?q\=$QUERY\&access_tok
 
 GITHUB_COM_COUNT=`echo $GITHUB_COM_RESULT | jq '.total_count'`
 
-COUNT$GITHUB_COM_COUNT
+COUNT=$GITHUB_COM_COUNT
 
 case $BitBarDarkMode in
   1) ICON_URL=http://s16.postimg.org/47oxw1dg1/issue_icon_white.png ;;
